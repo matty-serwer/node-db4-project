@@ -24,6 +24,9 @@ exports.up = function (knex) {
         .onUpdate("RESTRICT");
       table.integer("step_num").notNullable();
       table.string("instruction").notNullable();
+    })
+    .createTable("ingredient_quantity", (table) => {
+      table.increments("id");
       table.float("quantity").notNullable();
       table
         .integer("unit_id")
@@ -41,7 +44,15 @@ exports.up = function (knex) {
         .inTable("ingredients")
         .onDelete("RESTRICT")
         .onUpdate("RESTRICT");
-    });
+      table
+        .integer("recipe_id")
+        .unsigned()
+        .notNullable()
+        .references("recipe_id")
+        .inTable("recipes")
+        .onDelete("RESTRICT")
+        .onUpdate("RESTRICT");
+    })
 };
 
 exports.down = function (knex) {
