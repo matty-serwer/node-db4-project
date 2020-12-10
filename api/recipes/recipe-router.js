@@ -10,5 +10,13 @@ router.get("/", async (req, res) => {
     res.status(500).json({ message: e.message })
   }
 })
+router.get("/:id/shoppinglist", async (req, res) => {
+  try {
+    const data = await Recipe.getShoppingList(req.params.id);
+    res.status(201).json(data);
+  } catch (e) {
+    res.status(500).json({ message: e.message })
+  }
+})
 
 module.exports = router;
