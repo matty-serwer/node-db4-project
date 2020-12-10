@@ -23,6 +23,17 @@ module.exports = {
       .join("units as u", "u.unit_id", "iq.unit_id")
       .select("i.ingredient_name", "iq.quantity", "u.unit_type")
       .where('r.recipe_id', id)
+  },
+//   select 
+//     s.step_num,
+//     s.instruction
+// from steps s
+// where s.recipe_id = 1
+  getInstructions(id) {
+    return db("steps as s")
+      .select("s.step_num", "s.instruction")
+      .where("s.recipe_id", id)
+      .orderBy("s.step_num")
   }
 }
 
